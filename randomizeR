@@ -1,0 +1,8 @@
+# given a total number, generates a vector of that length in which 50% of the entries are "1" and 50% of the entries are "2". This designates cohort 1 or 2 within in a delayed-intervention randomized controlled trial.
+randlist<-function(count){
+  dat<-runif(count)
+  cut<-median(dat)
+  compare<-dat<cut
+  cohort<-as.integer(as.logical(compare))+1
+  return(cohort)
+}
