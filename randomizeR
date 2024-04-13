@@ -1,4 +1,4 @@
-# given a total number, generates a vector of that length in which 50% of the entries are "1" and 50% of the entries are "2". This designates cohort 1 or 2 within in a delayed-intervention randomized controlled trial.
+#given a total number, generates a vector of that length in which 50% of the entries are "1" and 50% of the entries are "2". This designates cohort 1 or 2 within in a delayed-intervention randomized controlled trial.
 randlist<-function(count){
   dat<-runif(count)
   cut<-median(dat)
@@ -6,3 +6,30 @@ randlist<-function(count){
   cohort<-as.integer(as.logical(compare))+1
   return(cohort)
 }
+
+#creates dataframe with three columns: site, total, and EL enrollment. Sample below is for four schools
+sites<-data.frame(hs=c("School 1", "School 2", "School 3", "School 4"),
+           total=c(tot1,tot2,tot3,tot4)
+           el=c(EL1,EL2,EL3,EL4))
+
+#sets roster variables for name of high school, and EL status
+hsr<-NULL
+elr<-NULL
+cohort<-NULL
+
+#creates three vectors for high school names, EL status, and cohort assignment
+for(i in 1:nrow(sites)){
+  hsr<-c(hsr,
+              rep(sites$hs[i],
+                  sites$total[i]))
+  elr<-c(elr,
+              rep(TRUE,sites$el[i]),
+              rep(FALSE,sites$total[i]-sites$el[i]))
+  cohort<-c(cohort,
+              randlist(sites$el[i]),
+              randlist(sites$total[i]-sites$el[i]))
+}
+
+#binds to dataframe and exports to CSV
+assignments<-data.frame(hsr,elr,cohort)
+write.csv(assignments,"Cohorts.csv")
