@@ -9,7 +9,7 @@ randlist<-function(count){
 
 #creates dataframe with three columns: site, total, and EL enrollment. Sample below is for four schools
 sites<-data.frame(hs=c("School 1", "School 2", "School 3", "School 4"),
-           total=c(tot1,tot2,tot3,tot4)
+           total=c(tot1,tot2,tot3,tot4),
            el=c(EL1,EL2,EL3,EL4))
 
 #sets roster variables for name of high school, and EL status
